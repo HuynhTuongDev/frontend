@@ -3,13 +3,14 @@ import Header from './components/shared/Header';
 import Footer from "./components/shared/Footer";
 import Navbar from "./components/shared/Navbar";
 import Page404 from "./components/shared/Page404";
+import AppRoutes from "./context/AppRouter";
 const App = () => {
   const [is404Page, setIs404Page] = useState(window.location.pathname === '/404');
-  
+
   function check404Page() {
     setIs404Page(window.location.pathname === '/404');
   }
-  
+
   return (
     <>
       <div className="w-full bg--400">
@@ -17,7 +18,10 @@ const App = () => {
           <Header />
           {!is404Page ? (
             <Navbar />
-          ) : <Page404 onReturned={check404Page}/>}
+          ) : <Page404 onReturned={check404Page} />}
+          {!is404Page && <Header />}
+          {!is404Page && <Navbar />}
+          <AppRoutes />
           {!is404Page && <Footer />}
         </div>
       </div>

@@ -2,10 +2,9 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom'; // Import useLocation
 import { SearchOutlined, ShoppingCartOutlined, UserOutlined } from '@ant-design/icons';
 import { Dropdown, Menu } from 'antd';
-import { assets } from '../../assets/assets';
-import SearchBar from '../shared/SearchBar';
+import { assets } from '../web/assets/assets';
+import AllProducts from '../web/components/homepage/AllProduct';
 const Navbar = () => {
-    const [showSearch, setShowSearch] = useState(false);
     const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
     const location = useLocation();
     const [selectedItem, setSelectedItem] = useState('');
@@ -21,8 +20,8 @@ const Navbar = () => {
             setSelectedItem('about');
         } else if (path.includes('contact')) {
             setSelectedItem('contact');
-        } else if (path.includes('collection')) {
-            setSelectedItem('collection');
+        } else if (path.includes('products')) {
+            setSelectedItem('products');
         } else {
             setSelectedItem('');
         }
@@ -48,37 +47,37 @@ const Navbar = () => {
             <div className='flex items-center justify-between py-5 font-medium sm:mt-32 xs:mt-32 xxs:mt-32 lg:mt-10 mt-16'>
                 <Link to='/'><img src={assets.logo} className="w-36" alt="Logo" /></Link>
                 <div className='flex items-center gap-12 ml-auto'>
-                    <ul className='hidden md:flex gap-24 text-lg font-semibold text-gray-800'>
+                    <ul className='hidden md:flex gap-24 text-md font-semibold text-gray-800'>
                         <NavLink
                             to='/'
-                            className='nav-link flex flex-col items-center gap-6'
-                            // onClick={() => setSelectedItem('home')}
+                            className='nav-link flex flex-col items-center gap-3'
+                            onClick={() => setSelectedItem('home')}
                         >
-                            <p className='text-xl'>TRANG CHỦ</p>
+                            <p className='text'>TRANG CHỦ</p>
                             <hr className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${selectedItem === 'home' ? '' : 'hidden'}`} />
                         </NavLink>
                         <NavLink
                             to='/postcategory/all'
-                            className='nav-link flex flex-col items-center gap-6'
-                            // onClick={() => setSelectedItem('news')}
+                            className='nav-link flex flex-col items-center gap-3'
+                            onClick={() => setSelectedItem('news')}
                         >
-                            <p className='text-xl'>TIN TỨC</p>
+                            <p>TIN TỨC</p>
                             <hr className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${selectedItem === 'news' ? '' : 'hidden'}`} />
                         </NavLink>
                         <NavLink
                             to='/about'
-                            className='nav-link flex flex-col items-center gap-6'
-                            // onClick={() => setSelectedItem('about')}
+                            className='nav-link flex flex-col items-center gap-3'
+                            onClick={() => setSelectedItem('about')}
                         >
-                            <p className='text-xl'>VỀ CHÚNG TÔI</p>
+                            <p>VỀ CHÚNG TÔI</p>
                             <hr className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${selectedItem === 'about' ? '' : 'hidden'}`} />
                         </NavLink>
                         <NavLink
                             to='/contact'
-                            className='nav-link flex flex-col items-center gap-6'
-                            // onClick={() => setSelectedItem('contact')}
+                            className='nav-link flex flex-col items-center gap-3'
+                            onClick={() => setSelectedItem('contact')}
                         >
-                            <p className='text-xl'>LIÊN HỆ</p>
+                            <p>LIÊN HỆ</p>
                             <hr className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${selectedItem === 'contact' ? '' : 'hidden'}`} />
                         </NavLink>
                     </ul>
@@ -123,15 +122,15 @@ const Navbar = () => {
                             <p>Back</p>
                         </div>
                         <NavLink onClick={() => setIsMobileMenuVisible(false)} className='py-2 pl-6 border menu-item' to='/'>TRANG CHỦ</NavLink>
+                        <div className='py-2 pl-6 border menu-item'>
+                            <AllProducts closeMenu={() => setIsMobileMenuVisible(false)} onSelectCollection={() => setSelectedItem('collection')} />
+                        </div>
                         <NavLink onClick={() => setIsMobileMenuVisible(false)} className='py-2 pl-6 border menu-item' to='/postcategory/all'>TIN TỨC</NavLink>
                         <NavLink onClick={() => setIsMobileMenuVisible(false)} className='py-2 pl-6 border menu-item' to='/about'>VỀ Chúng tôi</NavLink>
                         <NavLink onClick={() => setIsMobileMenuVisible(false)} className='py-2 pl-6 border menu-item' to='/contact'>LIÊN HỆ</NavLink>
                     </div>
                 </div>
             </div >
-            <div className={`search-bar ${showSearch ? 'open' : ''}`}>
-                {showSearch && <SearchBar showSearch={showSearch} setShowSearch={setShowSearch} />}
-            </div>
 
         </>
     );

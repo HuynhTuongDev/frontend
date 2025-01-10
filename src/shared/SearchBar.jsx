@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { SearchOutlined } from "@ant-design/icons";
-import { useNavigate } from "react-router-dom";
-
+import React, { useState, useEffect } from 'react'
+import { SearchOutlined } from '@ant-design/icons'
+import { useNavigate } from 'react-router-dom'
 const SearchBar = ({ setResult }) => {
   const [input, setInput] = useState("");
   const navigate = useNavigate();
@@ -29,14 +28,6 @@ const SearchBar = ({ setResult }) => {
       setResult(res.data);
     });
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (input.trim()) {
-      navigate(`/search/${input.trim()}`);
-    }
-  };
-
   return (
     <div className="border-t border-b bg-gray-50 text-center">
       <form
@@ -64,5 +55,4 @@ const SearchBar = ({ setResult }) => {
     </div>
   );
 };
-
 export default SearchBar;
