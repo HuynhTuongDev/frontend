@@ -1,8 +1,8 @@
 import React, { useContext, useState } from "react";
-import Header from './components/shared/Header';
-import Footer from "./components/shared/Footer";
-import Navbar from "./components/shared/Navbar";
-import Page404 from "./components/shared/Page404";
+import Header from './shared/Header';
+import Footer from "./shared/Footer";
+import Navbar from "./shared/Navbar";
+import Page404 from "./shared/Page404";
 import AppRoutes from "./context/AppRouter";
 const App = () => {
   const [is404Page, setIs404Page] = useState(window.location.pathname === '/404');
@@ -19,8 +19,6 @@ const App = () => {
           {!is404Page ? (
             <Navbar />
           ) : <Page404 onReturned={check404Page} />}
-          {!is404Page && <Header />}
-          {!is404Page && <Navbar />}
           <AppRoutes />
           {!is404Page && <Footer />}
         </div>
