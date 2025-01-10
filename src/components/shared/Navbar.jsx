@@ -52,7 +52,7 @@ const Navbar = () => {
                         <NavLink
                             to='/'
                             className='nav-link flex flex-col items-center gap-6'
-                            onClick={() => setSelectedItem('home')}
+                            // onClick={() => setSelectedItem('home')}
                         >
                             <p className='text-xl'>TRANG CHỦ</p>
                             <hr className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${selectedItem === 'home' ? '' : 'hidden'}`} />
@@ -60,7 +60,7 @@ const Navbar = () => {
                         <NavLink
                             to='/postcategory/all'
                             className='nav-link flex flex-col items-center gap-6'
-                            onClick={() => setSelectedItem('news')}
+                            // onClick={() => setSelectedItem('news')}
                         >
                             <p className='text-xl'>TIN TỨC</p>
                             <hr className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${selectedItem === 'news' ? '' : 'hidden'}`} />
@@ -68,7 +68,7 @@ const Navbar = () => {
                         <NavLink
                             to='/about'
                             className='nav-link flex flex-col items-center gap-6'
-                            onClick={() => setSelectedItem('about')}
+                            // onClick={() => setSelectedItem('about')}
                         >
                             <p className='text-xl'>VỀ CHÚNG TÔI</p>
                             <hr className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${selectedItem === 'about' ? '' : 'hidden'}`} />
@@ -76,7 +76,7 @@ const Navbar = () => {
                         <NavLink
                             to='/contact'
                             className='nav-link flex flex-col items-center gap-6'
-                            onClick={() => setSelectedItem('contact')}
+                            // onClick={() => setSelectedItem('contact')}
                         >
                             <p className='text-xl'>LIÊN HỆ</p>
                             <hr className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${selectedItem === 'contact' ? '' : 'hidden'}`} />
