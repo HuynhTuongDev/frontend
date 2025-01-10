@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { getProductBySearchValue } from '../../services/ProductService'
 import { SearchOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 
@@ -26,7 +25,7 @@ const SearchBar = ({ setResult }) => {
             setResult({})
             return
         }
-        getProductBySearchValue(value).then(res => {
+        (value).then(res => {
             setResult(res.data)
         })
     }
