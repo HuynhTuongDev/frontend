@@ -1,1 +1,5 @@
-import React, { useEffect, useState } from "react";
+const Register = () => {
+    return <div>Register Page</div>;
+};
+
+export default Register; // Export mặc định
