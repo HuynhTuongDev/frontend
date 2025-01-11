@@ -29,7 +29,7 @@ const HomePage = () => {
                             : "text-gray-600"
                             } hover:scale-105`}
                     >
-                        <a onClick={() => handleTabClick("LapTops")}>LapTops</a>
+                        <a onClick={() => handleTabClick("Laptops")}>Laptops</a>
                     </li>
                     <li
                         className={`item cursor-pointer transition-transform duration-300 ease-in-out ${activeTab === "Accessory"
@@ -41,7 +41,7 @@ const HomePage = () => {
                     </li>
                 </ul>
 
-                {activeTab === "LapTops" && (
+                {activeTab === "Laptops" && (
                     <ListProduct query="sorted-and-paged?categoryID=2&page=1&size=10&sortOrder=desc" />
                 )}
                 {activeTab === "SmartPhones" && (

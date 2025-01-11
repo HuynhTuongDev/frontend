@@ -3,6 +3,8 @@ import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Home from '../Home';
 import ListProduct from '../web/components/homepage/ListProduct';
 import AllProducts from '../web/components/homepage/AllProduct';
+import Register from '../web/pages/account/Register';
+import Page404 from '../shared/Page404';
 const AppRoutes = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -16,6 +18,7 @@ const AppRoutes = () => {
             '/',
             '/products/',
             '/products/allproducts',
+            '/register',
         ];
 
         // Skip validation if URL contains vnpayment parameters
@@ -38,6 +41,8 @@ const AppRoutes = () => {
             <Route path='/' element={<Home />} />
             <Route path='/products/' element={<ListProduct />} />
             <Route path='/products/allproducts' element={<AllProducts />} />
+            <Route path='/register' element={<Register />} />
+            <Route path='/404' element={<Page404 />} />
         </Routes>
     );
 };
