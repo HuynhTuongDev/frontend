@@ -6,7 +6,7 @@ const Register = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="w-full max-w-md p-6 bg-white shadow-md rounded-lg">
-        <h1 className="text-2xl font-bold text-center mb-6">Registration Form</h1>
+        <h1 className="text-2xl font-bold text-center mb-6">REGISTER</h1>
         
         {/* Registration Form */}
         <form className="space-y-4">
@@ -20,7 +20,7 @@ const Register = () => {
           <input
             type="text"
             name="email"
-            placeholder="Email Address"
+            placeholder="Email"
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
@@ -45,11 +45,18 @@ const Register = () => {
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
+          <input
+            type="password"
+            name="password"
+            placeholder="Confirm Password"
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+          />
           <button
             type="submit"
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
           >
-            Create Account
+            SIGN UP
           </button>
         </form>
 
