@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Home from '../Home';
-import ListProduct from '../web/components/homepage/ListProduct';
-import AllProducts from '../web/components/homepage/AllProduct';
 import Register from '../web/pages/account/Register';
 import Page404 from '../shared/Page404';
 import Login from '../web/pages/account/Login';
@@ -17,8 +15,6 @@ const AppRoutes = () => {
     useEffect(() => {
         const validRoutes = [
             '/',
-            '/products/',
-            '/products/allproducts',
             '/register',
             '/login',
         ];
@@ -41,8 +37,6 @@ const AppRoutes = () => {
     return (
         <Routes>
             <Route path='/' element={<Home />} />
-            <Route path='/products/' element={<ListProduct />} />
-            <Route path='/products/allproducts' element={<AllProducts />} />
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
             <Route path='/404' element={<Page404 />} />

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa';
+import Breadcrumb from '../../../shared/Breadcrumb';
 
 const Register = () => {
   const [account, setAccount] = useState({
@@ -11,6 +12,11 @@ const Register = () => {
     phone: '',
     address: '',
   });
+
+  const breadcrumbs = [
+    { title: 'Trang chủ', href: '/' },
+    { title: 'Đăng ký' },
+  ];
 
   const navigate = useNavigate();
 
@@ -61,6 +67,8 @@ const Register = () => {
   }
 
   return (
+    <>
+    <Breadcrumb items={breadcrumbs} />
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="w-full max-w-md p-6 bg-white shadow-md rounded-lg">
         <h1 className="text-2xl font-bold text-center mb-6">REGISTER</h1>
@@ -127,42 +135,43 @@ const Register = () => {
           </button>
         </form>
 
-        {/* Social Login */}
-        <div className="mt-6">
-          <p className="text-center text-gray-500">Or</p>
-          <div className="flex justify-center space-x-4 mt-4">
-            <Link
-              to="https://www.facebook.com/"
-              className="text-blue-600 text-2xl hover:scale-110 transition-transform duration-300"
-            >
-              <FaFacebook />
-            </Link>
-            <Link
-              to="https://www.google.com/"
-              className="text-red-600 text-2xl hover:scale-110 transition-transform duration-300"
-            >
-              <FaGoogle />
-            </Link>
-            <Link
-              to="https://www.github.com/"
-              className="text-black-600 text-2xl hover:scale-110 transition-transform duration-300"
-            >
-              <FaGithub />
-            </Link>
+          {/* Social Login */}
+          <div className="mt-6">
+            <p className="text-center text-gray-500">Or</p>
+            <div className="flex justify-center space-x-4 mt-4">
+              <Link
+                to="https://www.facebook.com/"
+                className="text-blue-600 text-2xl hover:scale-110 transition-transform duration-300"
+              >
+                <FaFacebook />
+              </Link>
+              <Link
+                to="https://www.google.com/"
+                className="text-red-600 text-2xl hover:scale-110 transition-transform duration-300"
+              >
+                <FaGoogle />
+              </Link>
+              <Link
+                to="https://www.github.com/"
+                className="text-black-600 text-2xl hover:scale-110 transition-transform duration-300"
+              >
+                <FaGithub />
+              </Link>
+            </div>
+          </div>
+
+          {/* Already have an account */}
+          <div className="mt-4 text-center">
+            <p className="text-gray-600">
+              Already have an account?{' '}
+              <Link to="/login" className="text-blue-500 hover:underline">
+                Sign in
+              </Link>
+            </p>
           </div>
         </div>
-
-        {/* Already have an account */}
-        <div className="mt-4 text-center">
-          <p className="text-gray-600">
-            Already have an account?{' '}
-            <Link to="/login" className="text-blue-500 hover:underline">
-              Sign in
-            </Link>
-          </p>
-        </div>
       </div>
-    </div>
+    </>
   );
 };
 
