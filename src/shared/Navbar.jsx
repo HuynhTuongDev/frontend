@@ -8,6 +8,7 @@ import {
 import { Dropdown, Menu } from "antd";
 import { assets } from "../web/assets/assets";
 import AllProducts from "../web/components/homepage/AllProduct";
+import Header from "./Header"
 const Navbar = () => {
   const [isMobileMenuVisible, setIsMobileMenuVisible] = useState(false);
   const location = useLocation();
@@ -48,6 +49,7 @@ const Navbar = () => {
 
   return (
     <>
+      <Header />
       <div className="flex items-center justify-between py-5 font-medium sm:mt-32 xs:mt-32 xxs:mt-32 lg:mt-10 mt-16">
         <Link to="/">
           <img src={assets.logo} className="w-36" alt="Logo" />
@@ -61,9 +63,8 @@ const Navbar = () => {
             >
               <p className="text">TRANG CHỦ</p>
               <hr
-                className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${
-                  selectedItem === "home" ? "" : "hidden"
-                }`}
+                className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${selectedItem === "home" ? "" : "hidden"
+                  }`}
               />
             </NavLink>
             <NavLink
@@ -73,9 +74,8 @@ const Navbar = () => {
             >
               <p>TIN TỨC</p>
               <hr
-                className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${
-                  selectedItem === "news" ? "" : "hidden"
-                }`}
+                className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${selectedItem === "news" ? "" : "hidden"
+                  }`}
               />
             </NavLink>
             <NavLink
@@ -85,9 +85,8 @@ const Navbar = () => {
             >
               <p>VỀ CHÚNG TÔI</p>
               <hr
-                className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${
-                  selectedItem === "about" ? "" : "hidden"
-                }`}
+                className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${selectedItem === "about" ? "" : "hidden"
+                  }`}
               />
             </NavLink>
             <NavLink
@@ -97,9 +96,8 @@ const Navbar = () => {
             >
               <p>LIÊN HỆ</p>
               <hr
-                className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${
-                  selectedItem === "contact" ? "" : "hidden"
-                }`}
+                className={`w-2/4 border-none h-[1.5px] bg-gray-700 ${selectedItem === "contact" ? "" : "hidden"
+                  }`}
               />
             </NavLink>
           </ul>
@@ -123,15 +121,17 @@ const Navbar = () => {
               </p>
             </Link>
           </div>
-          <Dropdown menu={{ items: [
-                { label: <Link to="/login">Đăng nhập</Link>, key: '1' },
-                { label: <Link to="/register">Đăng ký</Link>, key: '2' }
-            ]}} trigger={['click']}>
-                <UserOutlined
-                    style={{ fontSize: '35px' }}
-                    className='cursor-pointer hover:scale-110 hover:text-purple-500 transition-transform duration-300 ease-in-out'
-                />
-            </Dropdown>
+          <Dropdown menu={{
+            items: [
+              { label: <Link to="/login">Đăng nhập</Link>, key: '1' },
+              { label: <Link to="/register">Đăng ký</Link>, key: '2' }
+            ]
+          }} trigger={['click']}>
+            <UserOutlined
+              style={{ fontSize: '35px' }}
+              className='cursor-pointer hover:scale-110 hover:text-purple-500 transition-transform duration-300 ease-in-out'
+            />
+          </Dropdown>
 
           <img
             onClick={() => setIsMobileMenuVisible(true)}
@@ -141,9 +141,8 @@ const Navbar = () => {
           />
         </div>
         <div
-          className={`absolute top-0 right-0 bottom-0 mt-32 overflow-hidden bg-white transition-all ${
-            isMobileMenuVisible ? "w-full z-50" : "w-0"
-          }`}
+          className={`absolute top-0 right-0 bottom-0 mt-32 overflow-hidden bg-white transition-all ${isMobileMenuVisible ? "w-full z-50" : "w-0"
+            }`}
         >
           <div className="flex flex-col text-gray-600">
             <div

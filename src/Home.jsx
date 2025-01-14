@@ -1,56 +1,69 @@
-import React, { useState } from "react";
+import React from "react";
 import ListProduct from "./web/components/homepage/ListProduct";
-import OurPolicy from "./web/components/homepage/OurPolicy"
+import OurPolicy from "./web/components/homepage/OurPolicy";
+import Slider from "./web/components/homepage/Slider";
 const HomePage = () => {
-    const [activeTab, setActiveTab] = useState("SmartPhones");
-
-    const handleTabClick = (tab) => {
-        setActiveTab(tab);
-    };
-
     return (
         <>
             <main className="p-4">
-                {/* <Carousel /> */}
+                <Slider />
                 <OurPolicy />
                 <hr />
-                <ul className="hnt-tab flex justify-center space-x-4 text-center py-4">
-                    <li
-                        className={`item cursor-pointer transition-transform duration-300 ease-in-out ${activeTab === "SmartPhones"
-                            ? "text-blue-600 font-bold border-b-2 border-blue-600"
-                            : "text-gray-600"
-                            } hover:scale-105`}
+                <div>
+                    {/* Hot Deals */}
+                    <section
+                        style={{
+                            backgroundImage: "url('https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/desk_header_bg_f40c131d23.png')", // Link banner
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            padding: "20px",
+                            borderRadius: "8px",
+                            marginBottom: "20px",
+                        }}
+                        className="text-white"
                     >
-                        <a onClick={() => handleTabClick("SmartPhones")}>Smart Phones</a>
-                    </li>
-                    <li
-                        className={`item cursor-pointer transition-transform duration-300 ease-in-out ${activeTab === "Laptops"
-                            ? "text-blue-600 font-bold border-b-2 border-blue-600"
-                            : "text-gray-600"
-                            } hover:scale-105`}
-                    >
-                        <a onClick={() => handleTabClick("Laptops")}>Laptops</a>
-                    </li>
-                    <li
-                        className={`item cursor-pointer transition-transform duration-300 ease-in-out ${activeTab === "Accessory"
-                            ? "text-blue-600 font-bold border-b-2 border-blue-600"
-                            : "text-gray-600"
-                            } hover:scale-105`}
-                    >
-                        <a onClick={() => handleTabClick("Accessory")}>Accessory</a>
-                    </li>
-                </ul>
+                        <h2 className="text-3xl font-bold text-center mb-12">Hot Deals</h2>
+                        <div className="grid gap-4">
+                            <ListProduct query="sorted-and-paged?sortBy=discount&page=0&size=8&sortOrder=asc" />
+                        </div>
+                    </section>
 
-                {activeTab === "Laptops" && (
-                    <ListProduct query="sorted-and-paged?categoryID=2&page=1&size=10&sortOrder=desc" />
-                )}
-                {activeTab === "SmartPhones" && (
-                    <ListProduct query="sorted-and-paged?categoryID=1&page=1&size=10&sortOrder=asc" />
-                )}
-                {activeTab === "Accessory" && (
-                    <ListProduct query="sorted-and-paged?categoryID=3&page=1&size=10&sortOrder=desc" />
-                )}
+                    {/* New Product */}
+                    <section
+                        style={{
+                            backgroundImage: "url('https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/desk_header_bg_5c0b940e70.png')",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            padding: "20px",
+                            borderRadius: "8px",
+                            marginBottom: "20px",
+                        }}
+                        className="text-white"
+                    >
+                        <h2 className="text-3xl font-bold text-center mb-12">New Product</h2>
+                        <div className="grid gap-4">
+                            <ListProduct query="sorted-and-paged?sortBy=productID&page=0&size=8&sortOrder=desc" />
+                        </div>
+                    </section>
 
+                    {/* Best Seller */}
+                    <section
+                        style={{
+                            backgroundImage: "url('https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/Backgroung_gia_online_D_2_a2745b43fc.png')",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            padding: "20px",
+                            borderRadius: "8px",
+                            marginBottom: "20px",
+                        }}
+                        className="text-white"
+                    >
+                        <h2 className="text-3xl font-bold text-center mb-12">Best Seller</h2>
+                        <div className="grid gap-4">
+                            <ListProduct query="sorted-and-paged?sortBy=sold&page=0&size=8&sortOrder=asc" />
+                        </div>
+                    </section>
+                </div>
             </main>
         </>
     );

@@ -7,7 +7,7 @@ const Footer = () => {
         <>
             <div>
                 <hr />
-                <div className="flex flex-col sm:grid grid-cols-[2fr_2fr_2fr_2fr] gap-14 my-10 mt-20 text-sm">
+                <div className="flex flex-col sm:grid grid-cols-[2fr_2fr_2fr_2fr] gap-14  m-0 p-20 text-sm bg-gray-100 text-gray-700">
                     {/* Section 1 */}
                     {/* Location */}
                     <div>
@@ -100,7 +100,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     );
 }
