@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 import Breadcrumb from "../../../shared/Breadcrumb";
+import CopyRight from "../../../shared/CopyRight";
+import Header from "../../../shared/Header";
 
 const Login = () => {
   const [account, setAccount] = useState({
@@ -57,8 +59,17 @@ const Login = () => {
 
   return (
     <>
+      <Header />
       <Breadcrumb items={breadcrumbs} />
-      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div
+        style={{
+          backgroundImage:
+            "url('https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/Backgroung_gia_online_D_2_a2745b43fc.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        className="min-h-screen bg-gray-100 flex items-center justify-center"
+      >
         <div className="w-full max-w-md p-6 bg-white shadow-md rounded-lg">
           <h1 className="text-2xl font-bold text-center mb-6">LOGIN</h1>
 
@@ -123,6 +134,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <CopyRight />
     </>
   );
 };

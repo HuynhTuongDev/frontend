@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
+import CopyRight from "./CopyRight";
 const Page404 = () => {
     return (
         <>
@@ -20,6 +21,7 @@ const Page404 = () => {
                     </div>
                 </div>
             </main>
+            <CopyRight />
         </>
     )
 }

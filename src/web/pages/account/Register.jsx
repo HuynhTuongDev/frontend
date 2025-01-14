@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa';
-import Breadcrumb from '../../../shared/Breadcrumb';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
+import Breadcrumb from "../../../shared/Breadcrumb";
+import CopyRight from "../../../shared/CopyRight";
+import Header from "../../../shared/Header";
 
 const Register = () => {
   const [account, setAccount] = useState({
-    fullName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    phone: '',
-    address: '',
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+    phone: "",
+    address: "",
   });
 
-  const breadcrumbs = [
-    { title: 'Trang chủ', href: '/' },
-    { title: 'Đăng ký' },
-  ];
+  const breadcrumbs = [{ title: "Trang chủ", href: "/" }, { title: "Đăng ký" }];
 
   const navigate = useNavigate();
 
@@ -32,16 +31,16 @@ const Register = () => {
     event.preventDefault();
 
     if (account.password !== account.confirmPassword) {
-      alert('Passwords do not match!');
+      alert("Passwords do not match!");
       return;
     }
 
     const myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append("Content-Type", "application/json");
 
     try {
-      const response = await fetch('http://localhost:8082/api/users/register', {
-        method: 'POST',
+      const response = await fetch("http://localhost:8082/api/users/register", {
+        method: "POST",
         body: JSON.stringify({
           fullName: account.fullName,
           email: account.email,
@@ -53,87 +52,96 @@ const Register = () => {
       });
 
       if (response.ok) {
-        alert('Registration successful!');
-        navigate('/login'); // Redirect to login page after successful registration
+        alert("Registration successful!");
+        navigate("/login"); // Redirect to login page after successful registration
       } else {
         const errorData = await response.json();
         console.log(errorData);
         alert(`Registration failed: ${errorData.message}`);
       }
     } catch (error) {
-      console.error('Error during registration:', error);
-      alert('An error occurred. Please try again.');
+      console.error("Error during registration:", error);
+      alert("An error occurred. Please try again.");
     }
   }
 
   return (
     <>
-    <Breadcrumb items={breadcrumbs} />
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="w-full max-w-md p-6 bg-white shadow-md rounded-lg">
-        <h1 className="text-2xl font-bold text-center mb-6">REGISTER</h1>
+      <Header />
+      <Breadcrumb items={breadcrumbs} />
+      <div
+        style={{
+          backgroundImage:
+            "url('https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/Backgroung_gia_online_D_2_a2745b43fc.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+        className="min-h-screen flex items-center justify-center"
+      >
+        <div className="w-full max-w-md p-6 bg-white shadow-md rounded-lg">
+          <h1 className="text-2xl font-bold text-center mb-6">REGISTER</h1>
 
-        {/* Registration Form */}
-        <form className="space-y-4" onSubmit={handleRegister}>
-          <input
-            type="text"
-            name="fullName"
-            placeholder="Full Name"
-            value={account.fullName}
-            onChange={handleInputChange}
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={account.email}
-            onChange={handleInputChange}
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          <input
-            type="text"
-            name="address"
-            placeholder="Address"
-            value={account.address}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          <input
-            type="text"
-            name="phone"
-            placeholder="Phone Number"
-            value={account.phone}
-            onChange={handleInputChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={account.password}
-            onChange={handleInputChange}
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            value={account.confirmPassword}
-            onChange={handleInputChange}
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
-          >
-            SIGN UP
-          </button>
-        </form>
+          {/* Registration Form */}
+          <form className="space-y-4" onSubmit={handleRegister}>
+            <input
+              type="text"
+              name="fullName"
+              placeholder="Full Name"
+              value={account.fullName}
+              onChange={handleInputChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={account.email}
+              onChange={handleInputChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+            <input
+              type="text"
+              name="address"
+              placeholder="Address"
+              value={account.address}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+            <input
+              type="text"
+              name="phone"
+              placeholder="Phone Number"
+              value={account.phone}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={account.password}
+              onChange={handleInputChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+            <input
+              type="password"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              value={account.confirmPassword}
+              onChange={handleInputChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
+            >
+              SIGN UP
+            </button>
+          </form>
 
           {/* Social Login */}
           <div className="mt-6">
@@ -163,7 +171,7 @@ const Register = () => {
           {/* Already have an account */}
           <div className="mt-4 text-center">
             <p className="text-gray-600">
-              Already have an account?{' '}
+              Already have an account?{" "}
               <Link to="/login" className="text-blue-500 hover:underline">
                 Sign in
               </Link>
@@ -171,6 +179,7 @@ const Register = () => {
           </div>
         </div>
       </div>
+      <CopyRight />
     </>
   );
 };
