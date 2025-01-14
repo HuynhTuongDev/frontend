@@ -1,26 +1,87 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa';
 
 const Register = () => {
+  const [account, setAccount] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    phone: '',
+    address: '',
+  });
+
+  const navigate = useNavigate();
+
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    setAccount((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
+  async function handleRegister(event) {
+    event.preventDefault();
+
+    if (account.password !== account.confirmPassword) {
+      alert('Passwords do not match!');
+      return;
+    }
+
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    try {
+      const response = await fetch('http://localhost:8082/api/users/register', {
+        method: 'POST',
+        body: JSON.stringify({
+          fullName: account.fullName,
+          email: account.email,
+          password: account.password,
+          phone: account.phone,
+          address: account.address,
+        }),
+        headers: myHeaders,
+      });
+
+      if (response.ok) {
+        alert('Registration successful!');
+        navigate('/login'); // Redirect to login page after successful registration
+      } else {
+        const errorData = await response.json();
+        console.log(errorData);
+        alert(`Registration failed: ${errorData.message}`);
+      }
+    } catch (error) {
+      console.error('Error during registration:', error);
+      alert('An error occurred. Please try again.');
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="w-full max-w-md p-6 bg-white shadow-md rounded-lg">
         <h1 className="text-2xl font-bold text-center mb-6">REGISTER</h1>
-        
+
         {/* Registration Form */}
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleRegister}>
           <input
             type="text"
             name="fullName"
             placeholder="Full Name"
+            value={account.fullName}
+            onChange={handleInputChange}
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
           <input
-            type="text"
+            type="email"
             name="email"
             placeholder="Email"
+            value={account.email}
+            onChange={handleInputChange}
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
@@ -28,27 +89,33 @@ const Register = () => {
             type="text"
             name="address"
             placeholder="Address"
-            required
+            value={account.address}
+            onChange={handleInputChange}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
           <input
             type="text"
             name="phone"
             placeholder="Phone Number"
-            required
+            value={account.phone}
+            onChange={handleInputChange}
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
           <input
             type="password"
             name="password"
             placeholder="Password"
+            value={account.password}
+            onChange={handleInputChange}
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
           <input
             type="password"
-            name="password"
+            name="confirmPassword"
             placeholder="Confirm Password"
+            value={account.confirmPassword}
+            onChange={handleInputChange}
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />

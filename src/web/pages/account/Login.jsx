@@ -1,18 +1,63 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaFacebook, FaGithub, FaGoogle } from 'react-icons/fa';
 
 const Login = () => {
+  const [account, setAccount] = useState({
+    email: "",
+    password: "",
+  });
+
+  const navigate = useNavigate(); // Call useNavigate at the top level
+
+  async function checkUserLogin(event) {
+    event.preventDefault();
+  
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+  
+    try {
+      const response = await fetch("http://localhost:8082/api/users/login", {
+        method: "POST",
+        body: JSON.stringify({
+          email: account.email,
+          password: account.password,
+        }),
+        headers: myHeaders,
+      });
+  
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Login successful:', data);
+        navigate('/'); // Redirect to the homepage
+      } else {
+        const errorData = await response.json();
+        console.error('Login failed:', errorData);
+        alert(errorData.message || 'Invalid credentials');
+      }
+    } catch (error) {
+      console.error('Error during login:', error);
+      alert('An error occurred. Please try again.');
+    }
+  }
+
+  function handleInputChange(event) {
+    const { name, value } = event.target;
+    setAccount(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="w-full max-w-md p-6 bg-white shadow-md rounded-lg">
-        <h1 className="text-2xl font-bold text-center mb-6">
-          LOGIN
-        </h1>
+        <h1 className="text-2xl font-bold text-center mb-6">LOGIN</h1>
 
-        {/* Registration Form */}
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={checkUserLogin}>
           <input
+            onChange={handleInputChange}
+            value={account.email}
             type="text"
             name="email"
             placeholder="Email"
@@ -20,6 +65,8 @@ const Login = () => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
           />
           <input
+            onChange={handleInputChange}
+            value={account.password}
             type="password"
             name="password"
             placeholder="Password"
@@ -34,7 +81,6 @@ const Login = () => {
           </button>
         </form>
 
-        {/* Social Login */}
         <div className="mt-6">
           <p className="text-center text-gray-500">Or</p>
           <div className="flex justify-center space-x-4 mt-4">
@@ -59,7 +105,6 @@ const Login = () => {
           </div>
         </div>
 
-        {/* Already have an account */}
         <div className="mt-4 text-center">
           <p className="text-gray-600">
             Do not have an account?{" "}
@@ -73,4 +118,4 @@ const Login = () => {
   );
 };
 
-export default Login; // Export mặc định
+export default Login;
