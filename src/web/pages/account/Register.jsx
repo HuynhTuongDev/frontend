@@ -6,6 +6,9 @@ import CopyRight from "../../../shared/CopyRight";
 import Header from "../../../shared/Header";
 
 const Register = () => {
+  const breadcrumbs = [{ title: "Trang chủ", href: "/" }, { title: "Đăng ký" }];
+  const navigate = useNavigate();
+
   const [account, setAccount] = useState({
     fullName: "",
     email: "",
@@ -15,25 +18,27 @@ const Register = () => {
     address: "",
   });
 
-  const breadcrumbs = [{ title: "Trang chủ", href: "/" }, { title: "Đăng ký" }];
-
-  const navigate = useNavigate();
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
 
   function handleInputChange(event) {
     const { name, value } = event.target;
-    setAccount((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+
+    setAccount((prev) => {
+      const updatedAccount = { ...prev, [name]: value };
+
+      // Check if passwords match
+      if (name === "confirmPassword") {
+        setPasswordsMatch(
+          updatedAccount.password === updatedAccount.confirmPassword
+        );
+      }
+
+      return updatedAccount;
+    });
   }
 
   async function handleRegister(event) {
     event.preventDefault();
-
-    if (account.password !== account.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
 
     const myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -135,7 +140,12 @@ const Register = () => {
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
             />
+            {!passwordsMatch && (
+              <p className="text-red-500 text-sm">Passwords do not match</p>
+            )}
+
             <button
+              disabled={!passwordsMatch}
               type="submit"
               className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
             >
