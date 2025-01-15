@@ -2,7 +2,6 @@ import React from "react";
 import ListProduct from "./web/components/homepage/ListProduct";
 import OurPolicy from "./web/components/homepage/OurPolicy";
 import Slider from "./web/components/homepage/Slider";
-import CopyRight from "./shared/CopyRight";
 import Footer from "./shared/Footer";
 import Navbar from "./shared/Navbar";
 
@@ -73,7 +72,6 @@ const HomePage = () => {
                 </div>
             </main>
             <Footer/>
-            <CopyRight/>
         </>
     );
 };

@@ -72,7 +72,6 @@ const Register = () => {
 
   return (
     <>
-      <Header />
       <Breadcrumb items={breadcrumbs} />
       <div
         style={{
@@ -189,7 +188,6 @@ const Register = () => {
           </div>
         </div>
       </div>
-      <CopyRight />
     </>
   );
 };

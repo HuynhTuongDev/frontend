@@ -1,11 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Header from "./Header";
-import CopyRight from "./CopyRight";
 const Page404 = () => {
     return (
         <>
-            <Header />
             <main className="grid min-h-full place-items-center bg-white px-6 py-24 sm:py-32 lg:px-8  h-[92vh]">
                 <div className="text-center">
                     <p className="text-4xl font-semibold text-indigo-600">404</p>
@@ -21,7 +18,6 @@ const Page404 = () => {
                     </div>
                 </div>
             </main>
-            <CopyRight />
         </>
     )
 }

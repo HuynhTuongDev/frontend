@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 import Breadcrumb from "../../../shared/Breadcrumb";
-import CopyRight from "../../../shared/CopyRight";
-import Header from "../../../shared/Header";
 
 const Login = () => {
   const [account, setAccount] = useState({
@@ -59,7 +57,6 @@ const Login = () => {
 
   return (
     <>
-      <Header />
       <Breadcrumb items={breadcrumbs} />
       <div
         style={{
@@ -134,7 +131,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <CopyRight />
     </>
   );
 };
