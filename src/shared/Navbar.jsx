@@ -58,7 +58,7 @@ const Navbar = () => {
             <img src={assets.logo} className="w-32" alt="Logo" />
           </Link>
           <div className="flex items-center gap-2 rounded-full bg-red-500 w-32">
-            <button className="flex items-center justify-center w-10 h-10 text-white hover:bg-red-600 transition">
+            <button className="flex items-center justify-center w-10 h-10 text-white transition">
               <MenuOutlined style={{ fontSize: "20px" }} />
             </button>
             <span className="text-white text-base leading-relaxed font-bold">Danh mục</span>
