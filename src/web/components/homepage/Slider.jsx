@@ -71,19 +71,17 @@ const Slider = () => {
                 ]}
             >
                 {sliders.map((slider) => (
-                    <div key={slider.sliderID} className="w-full">  {/* Thêm padding nếu cần và điều chỉnh chiều rộng */}
+                    <div key={slider.sliderID} className="w-full">
                         <Link to={slider.imageURL}>
                             <img
                                 src={slider.imageURL}
-                                className="w-full h-auto object-contain px-6 border-4 border-red-300 rounded-xl"  // Giữ tỷ lệ ảnh
+                                className="px-2 border-0 rounded-3xl"
                                 alt={`Slide ${slider.description}`}
                             />
                         </Link>
                     </div>
                 ))}
             </Carousel>
-
-            {/* Navigation buttons */}
             <button
                 className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-white rounded-full shadow-md p-2"
                 onClick={prev}

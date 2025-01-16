@@ -7,42 +7,42 @@ const Footer = () => {
         <>
             <div>
                 <hr />
-                <div className="flex flex-col sm:grid grid-cols-[2fr_2fr_2fr_2fr] gap-14  m-0 p-20 text-sm bg-gray-100 text-gray-700">
+                <div className="flex flex-col sm:grid grid-cols-[2fr_2fr_2fr_2fr] gap-14  m-0 p-20 text-sm bg-gray-300 rounded-xl">
                     {/* Section 1 */}
                     {/* Location */}
                     <div>
                         <div className="flex items-center mb-3">
                             <div className="p-2 rounded-full bg-gray-200">
-                                <EnvironmentFilled className="text-gray-600" />
+                                <EnvironmentFilled className="text-black" />
                             </div>
-                            <p className="ml-3 w-full md:w-2/3 text-gray-600">
+                            <p className="ml-3 w-full md:w-2/3 text-black">
                                 Quy Nhon City
                             </p>
                         </div>
                         {/* Phone */}
                         <div className="flex items-center mb-3">
                             <div className="p-2 rounded-full bg-gray-200">
-                                <PhoneFilled className="text-gray-600" />
+                                <PhoneFilled className="text-black" />
                             </div>
-                            <p className="ml-3 w-full md:w-2/3 text-gray-600">
+                            <p className="ml-3 w-full md:w-2/3 text-black">
                                 Hotline: 0766024998
                             </p>
                         </div>
                         {/* Email */}
                         <div className="flex items-center mb-3">
                             <div className="p-2 rounded-full bg-gray-200">
-                                <MailFilled className="text-gray-600" />
+                                <MailFilled className="text-black" />
                             </div>
-                            <p className="ml-3 w-full md:w-2/3 text-gray-600">
+                            <p className="ml-3 w-full md:w-2/3 text-black">
                                 Email: SpacePhoneTechnology@gmail.com
                             </p>
                         </div>
                         {/* Policy */}
                         <div className="flex items-center mb-3">
                             <div className="p-2 rounded-full bg-gray-200">
-                                <FileAddFilled className="text-gray-600" />
+                                <FileAddFilled className="text-black" />
                             </div>
-                            <p className="ml-3 w-full md:w-2/3 text-gray-600">
+                            <p className="ml-3 w-full md:w-2/3 text-black">
                                 Giấy phép DKKD số 0101507251, cấp lần thứ 6 năm 2024
                             </p>
                         </div>
@@ -51,7 +51,7 @@ const Footer = () => {
                     {/* Section 2 */}
                     <div>
                         <p className="text-xl font-medium mb-5">Hỗ trợ khách hàng</p>
-                        <ul className="flex flex-col gap-1 text-gray-600">
+                        <ul className="flex flex-col gap-1 text-black">
                             <Link to={'/faq'}>
                                 <li className="hover:text-blue-500 cursor-pointer">Câu hỏi thường gặp</li>
                             </Link>
@@ -64,7 +64,7 @@ const Footer = () => {
                     {/* Section 3 */}
                     <div>
                         <p className="text-xl font-medium mb-5">Chính sách</p>
-                        <ul className="flex flex-col gap-1 text-gray-600">
+                        <ul className="flex flex-col gap-1 text-black">
                             <Link to={'/privacypolicy'}>
                                 <li className="hover:text-blue-500 cursor-pointer">Chính sách bảo mật</li>
                             </Link>
