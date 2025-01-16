@@ -20,7 +20,6 @@ const AppRoutes = () => {
         <Route index element={<Home />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        {/* <Route path="404" element={<Page404 />} /> */}
         <Route path="*" element={<Page404 />} />
       </Route>
 

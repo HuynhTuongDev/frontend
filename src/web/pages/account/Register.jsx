@@ -1,9 +1,9 @@
+// src/components/Register/Register.js
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 import Breadcrumb from "../../../shared/Breadcrumb";
-import CopyRight from "../../../shared/CopyRight";
-import Header from "../../../shared/Header";
+import { registerUser } from "../../services/UserService"; // Import registerUser
 
 const Register = () => {
   const breadcrumbs = [{ title: "Trang chủ", href: "/" }, { title: "Đăng ký" }];
@@ -19,6 +19,7 @@ const Register = () => {
   });
 
   const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [notification, setNotification] = useState(null);
 
   function handleInputChange(event) {
     const { name, value } = event.target;
@@ -28,9 +29,7 @@ const Register = () => {
 
       // Check if passwords match
       if (name === "confirmPassword") {
-        setPasswordsMatch(
-          updatedAccount.password === updatedAccount.confirmPassword
-        );
+        setPasswordsMatch(updatedAccount.password === updatedAccount.confirmPassword);
       }
 
       return updatedAccount;
@@ -40,52 +39,47 @@ const Register = () => {
   async function handleRegister(event) {
     event.preventDefault();
 
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
     try {
-      const response = await fetch("http://localhost:8082/api/users/register", {
-        method: "POST",
-        body: JSON.stringify({
-          fullName: account.fullName,
-          email: account.email,
-          password: account.password,
-          phone: account.phone,
-          address: account.address,
-        }),
-        headers: myHeaders,
+      setNotification(null);
+
+      await registerUser({
+        fullName: account.fullName,
+        email: account.email,
+        password: account.password,
+        phone: account.phone,
+        address: account.address,
       });
 
-      if (response.ok) {
-        alert("Registration successful!");
-        navigate("/login"); // Redirect to login page after successful registration
-      } else {
-        const errorData = await response.json();
-        console.log(errorData);
-        alert(`Registration failed: ${errorData.message}`);
-      }
+      setNotification({ message: "Registration successful!", type: "success" });
+      setTimeout(() => navigate("/login"), 2000); // Redirect after 2 seconds
     } catch (error) {
-      console.error("Error during registration:", error);
-      alert("An error occurred. Please try again.");
+      setNotification({ message: `Registration failed: ${error.response?.data?.message || error.message}`, type: "error" });
+      setTimeout(() => setNotification(null), 4000);
     }
   }
 
   return (
     <>
       <Breadcrumb items={breadcrumbs} />
+      {notification && (
+        <div
+          className={`fixed top-30 right-4  px-6 py-3 rounded-2xl shadow-lg text-white transition-all duration-300 ease-in-out ${notification.type === "success" ? "bg-green-500" : "bg-red-500"
+            }`}
+          role="alert"
+        >
+          {notification.message}
+        </div>
+      )}
       <div
         style={{
-          backgroundImage:
-            "url('https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/Backgroung_gia_online_D_2_a2745b43fc.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-        className="min-h-screen flex items-center justify-center"
+        className="min-h-screen bg-gray-200 flex items-center justify-center"
       >
-        <div className="w-full max-w-md p-6 bg-white shadow-md rounded-lg">
-          <h1 className="text-2xl font-bold text-center mb-6">REGISTER</h1>
+        <div className="w-full max-w-md p-6 bg-white shadow-lg rounded-lg transform transition-all duration-500 ease-in-out scale-95 hover:scale-100">
+          <h1 className="text-3xl font-bold text-center mb-6 animate__animated animate__fadeIn">Register</h1>
 
-          {/* Registration Form */}
           <form className="space-y-4" onSubmit={handleRegister}>
             <input
               type="text"
@@ -94,7 +88,7 @@ const Register = () => {
               value={account.fullName}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none transition-transform duration-300 ease-in-out"
             />
             <input
               type="email"
@@ -103,7 +97,7 @@ const Register = () => {
               value={account.email}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none transition-transform duration-300 ease-in-out"
             />
             <input
               type="text"
@@ -111,7 +105,7 @@ const Register = () => {
               placeholder="Address"
               value={account.address}
               onChange={handleInputChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none transition-transform duration-300 ease-in-out"
             />
             <input
               type="text"
@@ -119,7 +113,7 @@ const Register = () => {
               placeholder="Phone Number"
               value={account.phone}
               onChange={handleInputChange}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none transition-transform duration-300 ease-in-out"
             />
             <input
               type="password"
@@ -128,7 +122,7 @@ const Register = () => {
               value={account.password}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none transition-transform duration-300 ease-in-out"
             />
             <input
               type="password"
@@ -137,22 +131,20 @@ const Register = () => {
               value={account.confirmPassword}
               onChange={handleInputChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              className="w-full px-4 py-2 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none transition-transform duration-300 ease-in-out"
             />
             {!passwordsMatch && (
               <p className="text-red-500 text-sm">Passwords do not match</p>
             )}
-
             <button
               disabled={!passwordsMatch}
               type="submit"
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
+              className="w-full bg-blue-500 text-white py-2 px-4 rounded-2xl hover:bg-blue-600 hover:scale-105 transition-all duration-300 ease-in-out"
             >
-              SIGN UP
+              Sign Up
             </button>
           </form>
 
-          {/* Social Login */}
           <div className="mt-6">
             <p className="text-center text-gray-500">Or</p>
             <div className="flex justify-center space-x-4 mt-4">
@@ -177,7 +169,6 @@ const Register = () => {
             </div>
           </div>
 
-          {/* Already have an account */}
           <div className="mt-4 text-center">
             <p className="text-gray-600">
               Already have an account?{" "}

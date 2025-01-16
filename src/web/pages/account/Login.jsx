@@ -2,48 +2,37 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaFacebook, FaGithub, FaGoogle } from "react-icons/fa";
 import Breadcrumb from "../../../shared/Breadcrumb";
+import { loginUser } from "../../services/UserService";
 
 const Login = () => {
   const [account, setAccount] = useState({
     email: "",
     password: "",
   });
+  const [notification, setNotification] = useState(null); // Quản lý thông báo
+  const navigate = useNavigate();
 
   const breadcrumbs = [
     { title: "Trang chủ", href: "/" },
     { title: "Đăng nhập" },
   ];
 
-  const navigate = useNavigate(); // Call useNavigate at the top level
-
   async function checkUserLogin(event) {
     event.preventDefault();
 
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
     try {
-      const response = await fetch("http://localhost:8082/api/users/login", {
-        method: "POST",
-        body: JSON.stringify({
-          email: account.email,
-          password: account.password,
-        }),
-        headers: myHeaders,
+      const response = await loginUser({
+        email: account.email,
+        password: account.password,
       });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log("Login successful:", data);
-        navigate("/"); // Redirect to the homepage
-      } else {
-        const errorData = await response.json();
-        console.error("Login failed:", errorData);
-        alert(errorData.message || "Invalid credentials");
-      }
+      setNotification({ message: "Login successful!", type: "success" }); // Hiển thị thông báo thành công
+      setTimeout(() => {
+        setNotification(null);
+        navigate("/");
+      }, 1000); // Chuyển hướng sau 2 giây
     } catch (error) {
-      console.error("Error during login:", error);
-      alert("An error occurred. Please try again.");
+      setNotification({ message: "An error occurred. Please try again.", type: "error" }); // Hiển thị lỗi
+      setTimeout(() => setNotification(null), 4000); // Tự động ẩn sau 3 giây
     }
   }
 
@@ -58,47 +47,67 @@ const Login = () => {
   return (
     <>
       <Breadcrumb items={breadcrumbs} />
+      {notification && (
+        <div
+          className={`fixed top-30 right-4 px- py-3 rounded-2xl shadow-md text-white  w-auto max-w-xl ${notification.type === "success" ? "bg-green-500" : "bg-red-500"
+            }`}
+          role="alert"
+        >
+          {notification.message}
+        </div>
+      )}
+
       <div
         style={{
-          backgroundImage:
-            "url('https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/Backgroung_gia_online_D_2_a2745b43fc.png')",
+          // backgroundImage:
+          //   "url('https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/Backgroung_gia_online_D_2_a2745b43fc.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
-        className="min-h-screen bg-gray-100 flex items-center justify-center"
+        className="min-h-screen bg-gray-200 flex items-center justify-center"
       >
-        <div className="w-full max-w-md p-6 bg-white shadow-md rounded-lg">
-          <h1 className="text-2xl font-bold text-center mb-6">LOGIN</h1>
+        <div className="w-full max-w-md p-8 bg-white shadow-lg rounded-2xl transform transition hover:scale-105 hover:shadow-2xl">
+          <h1 className="text-3xl font-bold text-center mb-8 text-gray-800">Login</h1>
 
-          <form className="space-y-4" onSubmit={checkUserLogin}>
-            <input
-              onChange={handleInputChange}
-              value={account.email}
-              type="text"
-              name="email"
-              placeholder="Email"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
-            <input
-              onChange={handleInputChange}
-              value={account.password}
-              type="password"
-              name="password"
-              placeholder="Password"
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-            />
+          <form className="space-y-6" onSubmit={checkUserLogin}>
+            <div className="relative">
+              <input
+                onChange={handleInputChange}
+                value={account.email}
+                type="text"
+                name="email"
+                placeholder="Email"
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700"
+              />
+              <span className="absolute left-3 top-3 text-gray-400">
+                <i className="fas fa-envelope"></i>
+              </span>
+            </div>
+            <div className="relative">
+              <input
+                onChange={handleInputChange}
+                value={account.password}
+                type="password"
+                name="password"
+                placeholder="Password"
+                required
+                className="w-full px-4 py-3 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:outline-none text-gray-700"
+              />
+              <span className="absolute left-3 top-3 text-gray-400">
+                <i className="fas fa-lock"></i>
+              </span>
+            </div>
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
+              className="w-full bg-gradient-to-r from-blue-500 to-indigo-500 text-white py-3 rounded-2xl shadow-md hover:shadow-lg transform hover:-translate-y-1 transition duration-300"
             >
-              SIGN IN
+              Sign In
             </button>
           </form>
 
           <div className="mt-6">
-            <p className="text-center text-gray-500">Or</p>
+            <p className="text-center text-gray-500">Or sign in with</p>
             <div className="flex justify-center space-x-4 mt-4">
               <Link
                 to="https://www.facebook.com/"
@@ -123,7 +132,7 @@ const Login = () => {
 
           <div className="mt-4 text-center">
             <p className="text-gray-600">
-              Do not have an account?{" "}
+              Don't have an account?{" "}
               <Link to="/register" className="text-blue-500 hover:underline">
                 Sign up
               </Link>
