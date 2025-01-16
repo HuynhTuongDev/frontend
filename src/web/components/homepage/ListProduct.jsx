@@ -45,7 +45,7 @@ const ListProduct = (props) => {
                             products.map(product => (
                                 <div
                                     key={product.productID}
-                                    className="product-card bg-white shadow-lg rounded-2xl overflow-hidden relative group animate-move-from-center transition-transform duration-300 ease-in-out"
+                                    className="product-card bg-white shadow-lg rounded-3xl overflow-hidden relative group animate-move-from-center transition-transform duration-300 ease-in-out"
                                     onMouseEnter={() => handleMouseEnter(product.name)}
                                     onMouseLeave={handleMouseLeave}
                                     onMouseMove={handleMouseMove}
@@ -95,7 +95,7 @@ const ListProduct = (props) => {
                                                 </div>
                                             )}
                                             <button
-                                                className="bg-blue-500 text-white px-4 py-2 rounded-2xl flex items-center space-x-2 hover:bg-blue-600 transition duration-200 ease-in-out"
+                                                className="bg-blue-500 text-white px-4 py-2 rounded-3xl flex items-center space-x-2 hover:bg-blue-600 transition duration-200 ease-in-out"
                                                 onClick={() => addToCart(product.productID)} // Giả sử bạn có một hàm addToCart
                                             >
                                                 <FontAwesomeIcon icon={faCartShopping} />
