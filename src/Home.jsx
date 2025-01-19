@@ -13,9 +13,7 @@ const HomePage = () => {
             </div>
             <main className="p-4">
                 <Slider />
-                <OurPolicy />
-                <hr />
-                <div>
+                <div className="mt-10">
                     {/* Hot Deals */}
                     <section className="bg-cover bg-center p-5 rounded-3xl text-white" style={{ backgroundImage: "url('https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:quality(100)/desk_header_bg_f40c131d23.png')" }}>
                         <h2 className="text-3xl font-bold text-center mb-12">Hot Deals</h2>
@@ -41,6 +39,7 @@ const HomePage = () => {
                     </section>
                 </div>
             </main>
+            <OurPolicy />
             <Footer />
         </>
     );
