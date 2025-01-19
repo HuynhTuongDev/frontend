@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { AdminLayout, UserLayout } from "./layouts";
 import Home from "../Home";
+import Collection from "../web/components/homepage/Collection";
 import Register from "../web/pages/account/Register";
 import Login from "../web/pages/account/Login";
 import Page404 from "../shared/Page404";
@@ -18,6 +19,7 @@ const AppRoutes = () => {
       {/* User routes */}
       <Route path="/" element={<UserLayout />}>
         <Route index element={<Home />} />
+        <Route path="/products/:filterType?/:filterID?" element={<Collection />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="*" element={<Page404 />} />

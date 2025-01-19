@@ -111,20 +111,6 @@ const ListProduct = (props) => {
                             </div>
                         )
                     }
-                    <div className="col-span-full text-right mt-4">
-                        <Button className="bg-blue-500 text-white px-4 py-2 rounded-full shadow-md hover:bg-red-600 transition duration-300 ease-in-out">
-                            <Link to={`/products/allproducts`} className="flex items-center space-x-2 group">
-                                <span>Xem thêm</span>
-                                <span className="transform translate-x-0 group-hover:translate-x-1 transition-transform duration-300 ease-in-out">
-                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </span>
-                            </Link>
-                        </Button>
-                    </div>
-
-
                 </div>
 
                 {hoveredProductTitle && (
