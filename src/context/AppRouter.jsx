@@ -19,10 +19,11 @@ const AppRoutes = () => {
       {/* User routes */}
       <Route path="/" element={<UserLayout />}>
         <Route index element={<Home />} />
-        <Route path="/products/:filterType?/:filterID?" element={<Collection />} />
+        <Route path="/collections" element={<Collection />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
         <Route path="*" element={<Page404 />} />
+        <Route path="/404" element={<Page404 />} />
       </Route>
 
       {/* Admin routes */}

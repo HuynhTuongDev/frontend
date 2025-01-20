@@ -60,11 +60,11 @@ const Navbar = () => {
   }, []);
 
   const handleCategorySelect = (categoryID) => {
-    navigate(`/products?categoryID=${categoryID}`);
+    navigate(`/collections?category=${categoryID}`);
   };
 
   const handleBrandSelect = (brandID) => {
-    navigate(`/products?brandID=${brandID}`);
+    navigate(`/collections?brand=${brandID}`);
   };
 
   const menu = (
@@ -148,7 +148,7 @@ const Navbar = () => {
         <Menu.Item
           onClick={() => {
             // Điều hướng đến trang Collection không có bộ lọc
-            navigate(`/products`);
+            navigate(`/collections`);
           }}
           className="w-full bg-blue-500 hover:bg-blue-600 text-white rounded-lg border-0 py-3 px-4 text-center font-semibold transition"
         >

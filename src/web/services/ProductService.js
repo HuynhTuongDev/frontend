@@ -2,6 +2,7 @@ import axios from "axios";
 
 // Sử dụng đúng cú pháp cho biến môi trường trong Vite
 const PRODUCT_API = import.meta.env.VITE_BACKEND_URL + "/api/products";
+const COLLECTION_API = import.meta.env.VITE_BACKEND_URL + "/api/collections";
 
 const getProductByQuery = (query) => {
     return axios.get(`${PRODUCT_API}/${query}`)
@@ -16,7 +17,7 @@ const getProductByQuery = (query) => {
 // Hàm lấy tất cả sản phẩm
 const getAllProducts = async () => {
     try {
-        const response = await axios.get(PRODUCT_API);
+        const response = await axios.get(COLLECTION_API);
         return response.data;
     } catch (error) {
         console.error("Lỗi khi lấy dữ liệu sản phẩm:", error.response || error.message);
@@ -24,25 +25,39 @@ const getAllProducts = async () => {
     }
 };
 
-// Hàm lấy sản phẩm theo ID thương hiệu
-const getByBrandID = async (brandID) => {
+// Hàm lấy sản phẩm theo ID thương hiệu hoặc ID danh mục
+const getProductsByFilter = async (filterType, filterID) => {
     try {
-        const response = await axios.get(`${PRODUCT_API}/brand/${brandID}`);
-        return response.data; // Trả về dữ liệu sản phẩm
-    } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu sản phẩm theo thương hiệu:", error.response || error.message);
-        throw new Error('Lỗi khi lấy dữ liệu sản phẩm theo thương hiệu');
-    }
-};
+        let url = '';
 
-// Hàm lấy sản phẩm theo ID danh mục
-const getByCategoryID = async (categoryID) => {
-    try {
-        const response = await axios.get(`${PRODUCT_API}/category/${categoryID}`);
-        return response.data; // Trả về dữ liệu sản phẩm
+        // Xây dựng URL theo loại bộ lọc
+        if (filterType === 'brand' && filterID) {
+            url = `${COLLECTION_API}?brand=${encodeURIComponent(filterID)}`;
+        } else if (filterType === 'category' && filterID) {
+            url = `${COLLECTION_API}?category=${encodeURIComponent(filterID)}`;
+        } else if (filterType === 'both' && filterID) {
+            const { brandID, categoryID } = filterID;
+            if (brandID || categoryID) {
+                // Lọc theo cả brand và category
+                url = `${COLLECTION_API}?brand=${encodeURIComponent(brandID)}&category=${encodeURIComponent(categoryID)}`;
+            } else {
+                throw new Error('Thiếu brandID hoặc categoryID khi lọc cả hai');
+            }
+        } else {
+            throw new Error('Loại bộ lọc không hợp lệ hoặc thiếu thông tin bộ lọc');
+        }
+
+        // Log URL để kiểm tra
+        console.log("URL API được gọi:", url);
+
+        // Gửi yêu cầu GET đến API
+        const response = await axios.get(url);
+
+        // Trả về dữ liệu
+        return response.data;
     } catch (error) {
-        console.error("Lỗi khi lấy dữ liệu sản phẩm theo danh mục:", error.response || error.message);
-        throw new Error('Lỗi khi lấy dữ liệu sản phẩm theo danh mục');
+        console.error(`Lỗi khi lấy dữ liệu sản phẩm (${filterType}):`, error.response?.data || error.message);
+        throw error;
     }
 };
 
@@ -61,7 +76,6 @@ const getProductsByQuery = async (queryParams) => {
 export {
     getProductByQuery,
     getAllProducts,
-    getByBrandID,
-    getByCategoryID,
+    getProductsByFilter,
     getProductsByQuery,
 };

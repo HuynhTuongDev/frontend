@@ -4,8 +4,7 @@ import { Typography } from 'antd';
 import { FilterOutlined } from '@ant-design/icons';
 import {
     getAllProducts,
-    getByCategoryID,
-    getByBrandID,
+    getProductsByFilter,
 } from "../../services/ProductService";
 import { getBrands } from "../../services/BrandService";
 import { getCategories } from "../../services/CategoryService";
@@ -33,11 +32,11 @@ const Collection = () => {
     const [error, setError] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [productsPerPage] = useState(8); // Number of products per page
-
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [hoveredProductTitle, setHoveredProductTitle] = useState("");
     const queryParams = new URLSearchParams(location.search);
-    const categoryID = queryParams.get('categoryID');
-    const brandID = queryParams.get('brandID');
-
+    const categoryID = queryParams.get('category');
+    const brandID = queryParams.get('brand');
     // Fetch categories and brands for filtering
     const fetchFilters = async () => {
         try {
@@ -56,16 +55,21 @@ const Collection = () => {
             setLoading(true);
             setError(null);
             let productsData = [];
-            if (categoryID) {
-                productsData = await getByCategoryID(categoryID);
+
+            // Kiểm tra nếu cả categoryID và brandID đều tồn tại
+            if (categoryID && brandID) {
+                productsData = await getProductsByFilter('both', { categoryID, brandID }); // Lọc theo cả category và brand
+            } else if (categoryID) {
+                productsData = await getProductsByFilter('category', categoryID); // Lọc chỉ theo category
             } else if (brandID) {
-                productsData = await getByBrandID(brandID);
+                productsData = await getProductsByFilter('brand', brandID); // Lọc chỉ theo brand
             } else {
-                productsData = await getAllProducts();
+                productsData = await getAllProducts(); // Nếu không có bộ lọc nào, lấy tất cả sản phẩm
             }
-            setProducts(productsData);
+
+            setProducts(productsData); // Cập nhật sản phẩm vào state
         } catch (error) {
-            console.error("Lỗi khi lấy dữ liệu sản phẩm:", error);
+            console.error("Error fetching data:", error);
             setError("Không thể tải sản phẩm. Vui lòng thử lại.");
         } finally {
             setLoading(false);
@@ -75,16 +79,27 @@ const Collection = () => {
     useEffect(() => {
         fetchFilters(); // Fetch categories and brands for filter options
         fetchData(); // Fetch products when component mounts or filters change
-    }, [categoryID, brandID]);
+    }, [categoryID, brandID]); // Chạy lại khi categoryID hoặc brandID thay đổi
 
     const handleFilterChange = (filterType, filterID) => {
         const queryParams = new URLSearchParams(location.search);
-        if (filterType === "categoryID") {
-            queryParams.set("categoryID", filterID);
-        } else if (filterType === "brandID") {
-            queryParams.set("brandID", filterID);
+
+        if (filterType === "category") {
+            if (queryParams.get("category") === filterID) {
+                queryParams.delete("category");  // Nếu category đã được chọn, xoá bộ lọc
+            } else {
+                queryParams.set("category", filterID);  // Cập nhật category nếu chưa có
+            }
+        } else if (filterType === "brand") {
+            if (queryParams.get("brand") === filterID) {
+                queryParams.delete("brand");  // Nếu brand đã được chọn, xoá bộ lọc
+            } else {
+                queryParams.set("brand", filterID);  // Cập nhật brand nếu chưa có
+            }
         }
-        navigate(`?${queryParams.toString()}`); // Update the URL to reflect the filter changes
+
+        // Cập nhật lại URL mà không reload trang
+        navigate(`?${queryParams.toString()}`);
     };
 
     const addToCart = (productID) => {
@@ -134,7 +149,7 @@ const Collection = () => {
                                                 ? 'bg-red-500 text-white font-bold shadow'
                                                 : 'bg-gray-200 text-black-700 hover:bg-red-600 hover:text-white'
                                                 }`}
-                                            onClick={() => handleFilterChange("categoryID", category.categoryID)}
+                                            onClick={() => handleFilterChange("category", category.categoryID)}
                                         >
                                             <span>{category.categoryName}</span>
                                             {categoryID === category.categoryID && (
@@ -157,7 +172,7 @@ const Collection = () => {
                                                 ? 'bg-red-500 text-white font-bold shadow'
                                                 : 'bg-gray-200 text-black-700 hover:bg-red-600 hover:text-white'
                                                 }`}
-                                            onClick={() => handleFilterChange("brandID", brand.brandID)}
+                                            onClick={() => handleFilterChange("brand", brand.brandID)}
                                         >
                                             <span>{brand.brandName}</span>
                                             {brandID === brand.brandID && (
